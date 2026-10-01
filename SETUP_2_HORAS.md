@@ -1,38 +1,49 @@
-# Ruta de emergencia - 2 horas
+# Ruta de 2 horas
 
-## Min 0-10
-- Abre el proyecto.
-- Espera compilación.
-- Ejecuta Tools > Ping Pong > Rebuild Complete Project si las escenas no se generaron.
+## 0-10 min - Abrir y generar
+1. Abre con Unity 6000.3.16f1.
+2. Espera la importacion.
+3. Ejecuta `Tools > Ping Pong > 1 - Rebuild Complete Project`.
+4. Abre `Menu.unity`.
 
-## Min 10-25
-- Abre Menu.unity.
-- Play: prueba Jugar / Controles / Salir.
-- Abre Game.unity y prueba ambos jugadores.
+## 10-30 min - Probar jugabilidad
+- JUGAR abre Game.
+- P1: W/S.
+- P2: flechas.
+- Verifica rebotes, goles y marcador.
+- Llega a 5 para comprobar victoria.
+- Prueba ESC, continuar, reiniciar y menu.
 
-## Min 25-45
-- Ajusta arte/posiciones si algo se ve fuera de pantalla.
-- Verifica que la pelota rebote y que las paletas no salgan del campo.
+## 30-45 min - Validacion
+- `Tools > Ping Pong > 2 - Validate Project`.
+- Consola sin errores rojos.
+- Revisa que Menu y Game esten en Build Settings.
 
-## Min 45-65
-- Verifica goles, marcador, reset de pelota y victoria a 5.
-- Prueba pausa con ESC.
+## 45-65 min - Ajustes visuales opcionales
+Solo si todo funciona:
+- cambia textos o volumenes;
+- mueve UI;
+- ajusta `startSpeed`, `maxSpeed` o `maxScore` desde Inspector.
 
-## Min 65-80
-- Verifica sonidos: rebote, pared, punto, click y victoria.
+## 65-85 min - GitHub
+Si el repo remoto aun no existe:
+```bash
+gh auth login
+gh repo create Developer-vic1/Ping-Pong_Game --public --source=. --remote=origin --push
+git push -u origin develop
+git push origin --tags
+```
 
-## Min 80-95
-- File > Build Profiles / Build Settings.
-- Confirma Menu y Game.
-- Build para Windows.
+## 85-105 min - Ejecutable
+- `Tools > Ping Pong > 3 - Build Windows x64`
+- o `BUILD_WINDOWS_6000.3.16f1.bat`.
+- Prueba el `.exe` fuera de Unity.
 
-## Min 95-110
-- Abre el .exe.
-- Juega una partida completa.
-- Corrige solo errores bloqueantes.
-
-## Min 110-120
-- Revisa Git.
-- Crea remoto si falta.
-- Push main, develop y tag v1.0.0.
-- Ten listo el README para la exposición.
+## 105-120 min - Exposicion
+Muestra:
+1. Menu.
+2. Juego y controles.
+3. Colisiones y sonidos.
+4. Marcador y victoria.
+5. Git graph: `git log --oneline --graph --decorate --all`.
+6. Ejecutable y repo GitHub.
