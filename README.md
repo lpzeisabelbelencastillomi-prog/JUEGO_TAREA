@@ -1,49 +1,95 @@
 # Ping-Pong_Game
 
-Proyecto académico de Pong 2D desarrollado en Unity con estética pixel-fantasy.
+Juego 2D local para dos jugadores, creado para **Unity 6000.3.16f1** y organizado con un flujo Git Flow simplificado.
 
-## Incluye
-- 2 escenas: Menu y Game
-- Dos jugadores locales
-- Player 1: W / S
-- Player 2: Flecha arriba / Flecha abajo
-- Colisiones y rebotes
-- Marcador y condición de victoria a 5 puntos
-- Pausa con ESC
-- Sonidos de rebote, punto, click y victoria
-- Menú, controles, pausa y pantalla final
-- Assets originales incluidos en `Assets/_Project/Art`
-- Historial Git Flow local incluido
+## Estado
+- Version estable: **v1.1.0**
+- Unity: **6000.3.16f1**
+- Plataforma objetivo: **Windows x64**
+- Estilo: **Fantasy / pixel-art 2D**
+
+## Caracteristicas
+- 2 escenas: `Menu` y `Game`
+- 2 jugadores locales
+- Player 1: `W / S`
+- Player 2: `Flecha Arriba / Flecha Abajo`
+- `ESC` para pausar
+- Fisica 2D con `Rigidbody2D` y `Collider2D`
+- Rebote segun punto de impacto en la paleta
+- Incremento progresivo de velocidad con limite
+- Proteccion contra trayectorias casi verticales
+- Marcador visible
+- Cuenta regresiva antes de cada saque
+- Primero en llegar a 5 puntos gana
+- Pantalla de victoria y revancha
+- Menu de pausa
+- Efectos de sonido y ambiente musical original
+- Camara con pequeno shake en impactos/goles
+- Assets pixel-art originales incluidos
+- Configuracion Pixel Perfect 2D compatible con Unity 6.3
+- Builder automatico de escenas
+- Validador del proyecto
+- Build automatico para Windows x64
 
 ## Abrir el proyecto
-1. Descomprime la carpeta completa.
-2. Unity Hub > Add > selecciona `Ping-Pong_Game`.
-3. Ábrelo con Unity 6.3 LTS o una versión Unity 6 compatible.
-4. Espera a que Unity compile.
-5. El script `PingPongProjectBuilder` genera automáticamente las escenas la primera vez.
-6. Si no ocurre, usa: **Tools > Ping Pong > Rebuild Complete Project**.
+1. Instala Unity **6000.3.16f1** en Unity Hub.
+2. Descomprime este proyecto.
+3. Unity Hub > Add/Open > selecciona la carpeta del proyecto.
+4. Espera a que Unity importe los paquetes.
+5. La primera vez el builder crea automaticamente `Menu.unity` y `Game.unity`.
+6. Si no aparecen: `Tools > Ping Pong > 1 - Rebuild Complete Project`.
 7. Abre `Assets/_Project/Scenes/Menu.unity` y pulsa Play.
 
-## Build
-- File > Build Profiles / Build Settings
-- Windows
-- Scenes: Menu y Game
-- Build
+## Validar
+En Unity ejecuta:
 
-## Git
-El ZIP incluye `.git` con una historia de ramas/merges local. Para conectarlo a tu GitHub:
+`Tools > Ping Pong > 2 - Validate Project`
 
-```bash
-git remote add origin https://github.com/Developer-vic1/Ping-Pong_Game.git
-git push -u origin main
-git push -u origin develop
-git push origin --tags
+La consola debe mostrar `PING-PONG_GAME VALIDATION: OK.`
+
+## Generar ejecutable
+Opcion A:
+
+`Tools > Ping Pong > 3 - Build Windows x64`
+
+Opcion B: ejecuta `BUILD_WINDOWS_6000.3.16f1.bat`.
+
+Salida:
+
+`Build/Windows/Ping-Pong_Game.exe`
+
+## Estructura
+```text
+Assets/
+├── Editor/
+│   ├── PingPongProjectBuilder.cs
+│   └── PingPongBuildPipeline.cs
+└── _Project/
+    ├── Art/
+    │   ├── Backgrounds/
+    │   ├── Sprites/
+    │   └── UI/
+    ├── Audio/
+    │   ├── Music/
+    │   └── SFX/
+    ├── Materials/
+    ├── Scenes/
+    ├── Scripts/
+    │   ├── Audio/
+    │   ├── Core/
+    │   ├── Gameplay/
+    │   └── UI/
+    └── Settings/
 ```
 
-Si el repositorio remoto aún no existe y tienes GitHub CLI:
+## Git Flow
+`main` = estable / entrega.  
+`develop` = integracion.  
+`feature/*` = funcionalidades.  
+`release/*` = preparacion de version.  
+`hotfix/*` = correcciones urgentes desde `main`.
 
-```bash
-gh repo create Developer-vic1/Ping-Pong_Game --public --source=. --remote=origin --push
-git push -u origin develop
-git push origin --tags
-```
+Consulta `GITFLOW.md` para el flujo completo.
+
+## Nota tecnica
+Las escenas se generan desde un script Editor para que el ZIP sea portable y pueda reconstruirse de forma reproducible al abrirse en Unity 6000.3.16f1.
