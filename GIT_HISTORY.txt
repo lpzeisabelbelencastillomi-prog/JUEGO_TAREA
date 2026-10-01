@@ -1,6 +1,19 @@
-*   2b048dd (HEAD -> develop) merge: release/v1.0.0 into develop
+*   96fe4b6 (HEAD -> develop) merge: hotfix/inactive-ui-buttons into develop
 |\  
-| | *   07e8710 (tag: v1.0.0, main) release: v1.0.0
+| | *   1f81a09 (tag: v1.0.1, main) hotfix: inactive UI button wiring
+| | |\  
+| | |/  
+| |/|   
+| * | a95d300 fix: wire buttons inside inactive UI panels
+| |/  
+| *   41d2e7f docs: sync final documentation from develop
+| |\  
+| |/  
+|/|   
+* | 0c1efc4 docs: add generated git history reference
+* |   2b048dd merge: release/v1.0.0 into develop
+|\ \  
+| | *   07e8710 (tag: v1.0.0) release: v1.0.0
 | | |\  
 | | |/  
 | |/|   
