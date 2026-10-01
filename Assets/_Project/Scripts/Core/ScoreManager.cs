@@ -5,6 +5,7 @@ public class ScoreManager : MonoBehaviour
 {
     public Text player1Text;
     public Text player2Text;
+
     public int Player1Score { get; private set; }
     public int Player2Score { get; private set; }
 
@@ -18,10 +19,12 @@ public class ScoreManager : MonoBehaviour
     public int AddPoint(int player)
     {
         if (player == 1) Player1Score++;
-        else Player2Score++;
+        else if (player == 2) Player2Score++;
         Refresh();
-        return player == 1 ? Player1Score : Player2Score;
+        return GetScore(player);
     }
+
+    public int GetScore(int player) => player == 1 ? Player1Score : Player2Score;
 
     public void Refresh()
     {
