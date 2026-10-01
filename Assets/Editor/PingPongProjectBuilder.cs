@@ -186,15 +186,16 @@ public static class PingPongProjectBuilder
         Canvas canvas=CreateCanvas();
         CreateText(canvas.transform,"Title","PING-PONG GAME",new Vector2(0,265),new Vector2(1000,160),92,new Color(1f,.82f,.35f));
         CreateText(canvas.transform,"Subtitle","FANTASY DUEL",new Vector2(0,180),new Vector2(700,70),34,new Color(.9f,.92f,.95f));
-        CreateButton(canvas.transform,"PlayButton","JUGAR",new Vector2(0,55),new Vector2(430,105));
-        CreateButton(canvas.transform,"ControlsButton","CONTROLES",new Vector2(0,-75),new Vector2(430,105));
-        CreateButton(canvas.transform,"ExitButton","SALIR",new Vector2(0,-205),new Vector2(430,105));
+        Button playButton=CreateButton(canvas.transform,"PlayButton","JUGAR",new Vector2(0,55),new Vector2(430,105)).GetComponent<Button>();
+        Button controlsButton=CreateButton(canvas.transform,"ControlsButton","CONTROLES",new Vector2(0,-75),new Vector2(430,105)).GetComponent<Button>();
+        Button exitButton=CreateButton(canvas.transform,"ExitButton","SALIR",new Vector2(0,-205),new Vector2(430,105)).GetComponent<Button>();
         GameObject controls=CreateImage(canvas.transform,"ControlsPanel",Vector2.zero,new Vector2(920,560),Color.white,S("Assets/_Project/Art/UI/panel.png"));
         CreateText(controls.transform,"ControlsTitle","CONTROLES",new Vector2(0,175),new Vector2(700,80),55,new Color(1f,.82f,.35f));
         CreateText(controls.transform,"ControlsText","PLAYER 1   W / S\n\nPLAYER 2   FLECHAS ARRIBA / ABAJO\n\nESC   PAUSA",new Vector2(0,15),new Vector2(780,300),38,Color.white);
-        CreateButton(controls.transform,"ControlsBackButton","VOLVER",new Vector2(0,-205),new Vector2(350,90));
+        Button controlsBackButton=CreateButton(controls.transform,"ControlsBackButton","VOLVER",new Vector2(0,-205),new Vector2(350,90)).GetComponent<Button>();
         controls.SetActive(false);
-        var mc=canvas.gameObject.AddComponent<MenuController>(); mc.controlsPanel=controls;
+        var mc=canvas.gameObject.AddComponent<MenuController>();
+        mc.controlsPanel=controls; mc.playButton=playButton; mc.controlsButton=controlsButton; mc.exitButton=exitButton; mc.controlsBackButton=controlsBackButton;
         EditorSceneManager.SaveScene(scene,SceneDir+"/Menu.unity");
     }
 
@@ -244,20 +245,22 @@ public static class PingPongProjectBuilder
 
         GameObject pause=CreateImage(canvas.transform,"PausePanel",Vector2.zero,new Vector2(850,600),Color.white,S("Assets/_Project/Art/UI/panel.png"));
         CreateText(pause.transform,"PauseTitle","PAUSA",new Vector2(0,190),new Vector2(600,100),65,new Color(1f,.82f,.35f));
-        CreateButton(pause.transform,"ResumeButton","CONTINUAR",new Vector2(0,70),new Vector2(420,90));
-        CreateButton(pause.transform,"RestartButton","REINICIAR",new Vector2(0,-55),new Vector2(420,90));
-        CreateButton(pause.transform,"PauseMenuButton","MENU",new Vector2(0,-180),new Vector2(420,90));
+        Button resumeButton=CreateButton(pause.transform,"ResumeButton","CONTINUAR",new Vector2(0,70),new Vector2(420,90)).GetComponent<Button>();
+        Button restartButton=CreateButton(pause.transform,"RestartButton","REINICIAR",new Vector2(0,-55),new Vector2(420,90)).GetComponent<Button>();
+        Button pauseMenuButton=CreateButton(pause.transform,"PauseMenuButton","MENU",new Vector2(0,-180),new Vector2(420,90)).GetComponent<Button>();
         pause.SetActive(false);
 
         GameObject win=CreateImage(canvas.transform,"WinPanel",Vector2.zero,new Vector2(980,650),Color.white,S("Assets/_Project/Art/UI/panel.png"));
         var winner=CreateText(win.transform,"WinnerText","PLAYER 1 GANA",new Vector2(0,170),new Vector2(800,120),70,new Color(1f,.82f,.35f)).GetComponent<Text>();
-        CreateButton(win.transform,"RematchButton","REVANCHA",new Vector2(0,10),new Vector2(440,100));
-        CreateButton(win.transform,"WinMenuButton","MENU",new Vector2(0,-135),new Vector2(440,100));
+        Button rematchButton=CreateButton(win.transform,"RematchButton","REVANCHA",new Vector2(0,10),new Vector2(440,100)).GetComponent<Button>();
+        Button winMenuButton=CreateButton(win.transform,"WinMenuButton","MENU",new Vector2(0,-135),new Vector2(440,100)).GetComponent<Button>();
         win.SetActive(false);
 
         GameObject gmgo=new GameObject("GameManager");
         var sm=gmgo.AddComponent<ScoreManager>(); sm.player1Text=s1; sm.player2Text=s2;
-        var gm=gmgo.AddComponent<GameManager>(); gm.ball=ballScript; gm.scoreManager=sm; gm.pausePanel=pause; gm.winPanel=win; gm.winnerText=winner; gm.maxScore=5;
+        var gm=gmgo.AddComponent<GameManager>();
+        gm.ball=ballScript; gm.scoreManager=sm; gm.pausePanel=pause; gm.winPanel=win; gm.winnerText=winner; gm.maxScore=5;
+        gm.resumeButton=resumeButton; gm.restartButton=restartButton; gm.pauseMenuButton=pauseMenuButton; gm.rematchButton=rematchButton; gm.winMenuButton=winMenuButton;
 
         EditorSceneManager.SaveScene(scene,SceneDir+"/Game.unity");
     }

@@ -12,6 +12,11 @@ public class GameManager : MonoBehaviour
     public GameObject pausePanel;
     public GameObject winPanel;
     public Text winnerText;
+    public Button resumeButton;
+    public Button restartButton;
+    public Button pauseMenuButton;
+    public Button rematchButton;
+    public Button winMenuButton;
     private bool gameEnded;
     private bool waitingLaunch;
 
@@ -24,7 +29,11 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         scoreManager.ResetScore();
-        WireButtons();
+        if (resumeButton != null) resumeButton.onClick.AddListener(Resume);
+        if (restartButton != null) restartButton.onClick.AddListener(RestartMatch);
+        if (pauseMenuButton != null) pauseMenuButton.onClick.AddListener(BackToMenu);
+        if (rematchButton != null) rematchButton.onClick.AddListener(RestartMatch);
+        if (winMenuButton != null) winMenuButton.onClick.AddListener(BackToMenu);
         ball.ResetBall();
         StartCoroutine(LaunchAfterDelay(0.8f));
     }
@@ -33,23 +42,6 @@ public class GameManager : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Escape) && !gameEnded)
             TogglePause();
-    }
-
-    void WireButtons()
-    {
-        Bind("ResumeButton", Resume);
-        Bind("RestartButton", RestartMatch);
-        Bind("PauseMenuButton", BackToMenu);
-        Bind("RematchButton", RestartMatch);
-        Bind("WinMenuButton", BackToMenu);
-    }
-
-    void Bind(string name, UnityEngine.Events.UnityAction action)
-    {
-        GameObject go = GameObject.Find(name);
-        if (go == null) return;
-        Button b = go.GetComponent<Button>();
-        if (b != null) b.onClick.AddListener(action);
     }
 
     IEnumerator LaunchAfterDelay(float seconds)

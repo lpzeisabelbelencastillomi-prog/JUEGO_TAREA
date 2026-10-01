@@ -5,21 +5,17 @@ using UnityEngine.UI;
 public class MenuController : MonoBehaviour
 {
     public GameObject controlsPanel;
+    public Button playButton;
+    public Button controlsButton;
+    public Button exitButton;
+    public Button controlsBackButton;
 
     void Start()
     {
-        Bind("PlayButton", PlayGame);
-        Bind("ControlsButton", ShowControls);
-        Bind("ExitButton", ExitGame);
-        Bind("ControlsBackButton", HideControls);
-    }
-
-    void Bind(string name, UnityEngine.Events.UnityAction action)
-    {
-        GameObject go = GameObject.Find(name);
-        if (go == null) return;
-        Button b = go.GetComponent<Button>();
-        if (b != null) b.onClick.AddListener(() => { AudioManager.Instance?.PlayClick(); action(); });
+        if (playButton != null) playButton.onClick.AddListener(() => { AudioManager.Instance?.PlayClick(); PlayGame(); });
+        if (controlsButton != null) controlsButton.onClick.AddListener(() => { AudioManager.Instance?.PlayClick(); ShowControls(); });
+        if (exitButton != null) exitButton.onClick.AddListener(() => { AudioManager.Instance?.PlayClick(); ExitGame(); });
+        if (controlsBackButton != null) controlsBackButton.onClick.AddListener(() => { AudioManager.Instance?.PlayClick(); HideControls(); });
     }
 
     public void PlayGame() => SceneManager.LoadScene("Game");
