@@ -1,0 +1,39 @@
+*   2b048dd (HEAD -> develop) merge: release/v1.0.0 into develop
+|\  
+| | *   07e8710 (tag: v1.0.0, main) release: v1.0.0
+| | |\  
+| | |/  
+| |/|   
+| * | 96235bd chore: prepare v1.0.0 release
+|/ /  
+* |   aa0e47b merge: feature/audio-polish into develop
+|\ \  
+| * | dc0bc16 feat: add audio manager and gameplay sound effects
+|/ /  
+* |   b68e142 merge: feature/ui-menu into develop
+|\ \  
+| * | 84989ca feat: add menu and controls navigation
+|/ /  
+* |   dbef017 merge: feature/scoring-endgame into develop
+|\ \  
+| * | f71e676 feat: add scoring, pause and win condition
+|/ /  
+* |   18eee22 merge: feature/gameplay-core into develop
+|\ \  
+| * | c7f3c37 feat: implement paddle and ball gameplay
+|/ /  
+* |   698e951 merge: feature/level-design into develop
+|\ \  
+| * | 9758d47 feat: add automatic menu and arena scene builder
+|/ /  
+* |   c7631d0 merge: feature/assets-import into develop
+|\ \  
+| * | 561c6a4 chore: import original fantasy art and audio assets
+|/ /  
+* |   89650a5 merge: feature/project-setup into develop
+|\ \  
+| |/  
+|/|   
+| * ca7dba9 chore: create Unity project folder structure
+|/  
+* 94ab4ad (tag: v0.1.0) chore: initialize Unity project and repository
