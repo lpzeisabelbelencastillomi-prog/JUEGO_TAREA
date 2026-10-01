@@ -1,60 +1,98 @@
 using UnityEngine;
 
-[RequireComponent(typeof(Rigidbody2D))]
+[RequireComponent(typeof(Rigidbody2D), typeof(CircleCollider2D))]
 public class BallController : MonoBehaviour
 {
-    public float startSpeed = 8f;
-    public float maxSpeed = 12f;
-    private Rigidbody2D rb;
-    private bool activeBall;
+    [Header("Speed")]
+    [Min(1f)] public float startSpeed = 7.6f;
+    [Min(1f)] public float speedGainPerPaddle = 0.42f;
+    [Min(1f)] public float maxSpeed = 12.8f;
+    [Range(0.15f, 0.75f)] public float minimumHorizontalRatio = 0.38f;
+
+    [Header("Control / Feel")]
+    [Range(0f, 1f)] public float impactInfluence = 0.74f;
+    [Range(0f, 0.35f)] public float paddleVelocityInfluence = 0.11f;
+
+    public bool IsActive { get; private set; }
+    public float CurrentSpeed => rb == null ? 0f : rb.linearVelocity.magnitude;
+
+    Rigidbody2D rb;
+    Vector3 initialScale;
 
     void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
+        rb.gravityScale = 0f;
+        rb.freezeRotation = true;
+        rb.collisionDetectionMode = CollisionDetectionMode2D.Continuous;
+        rb.interpolation = RigidbodyInterpolation2D.Interpolate;
+        initialScale = transform.localScale;
     }
 
     public void ResetBall()
     {
-        activeBall = false;
-        transform.position = Vector3.zero;
+        IsActive = false;
+        rb.simulated = true;
         rb.linearVelocity = Vector2.zero;
         rb.angularVelocity = 0f;
+        rb.position = Vector2.zero;
+        transform.localScale = initialScale;
     }
 
-    public void Launch()
+    public void Launch(int horizontalDirection = 0)
     {
-        activeBall = true;
-        float x = Random.value > 0.5f ? 1f : -1f;
-        float y = Random.Range(-0.55f, 0.55f);
-        Vector2 direction = new Vector2(x, y).normalized;
-        rb.linearVelocity = direction * startSpeed;
+        IsActive = true;
+        int xSign = horizontalDirection == 0 ? (Random.value < 0.5f ? -1 : 1) : (horizontalDirection < 0 ? -1 : 1);
+        float y = Random.Range(-0.52f, 0.52f);
+        Vector2 dir = new Vector2(xSign, y).normalized;
+        rb.linearVelocity = dir * startSpeed;
+    }
+
+    public void StopBall()
+    {
+        IsActive = false;
+        rb.linearVelocity = Vector2.zero;
     }
 
     void FixedUpdate()
     {
-        if (!activeBall || Time.timeScale == 0f) return;
-        float speed = rb.linearVelocity.magnitude;
-        if (speed < startSpeed * 0.9f && speed > 0.1f)
-            rb.linearVelocity = rb.linearVelocity.normalized * startSpeed;
-        if (speed > maxSpeed)
-            rb.linearVelocity = rb.linearVelocity.normalized * maxSpeed;
+        if (!IsActive || rb.linearVelocity.sqrMagnitude < 0.001f) return;
+
+        float speed = Mathf.Clamp(rb.linearVelocity.magnitude, startSpeed, maxSpeed);
+        Vector2 dir = rb.linearVelocity.normalized;
+
+        // Avoid boring near-vertical loops.
+        if (Mathf.Abs(dir.x) < minimumHorizontalRatio)
+        {
+            float sign = Mathf.Sign(dir.x == 0f ? (Random.value < 0.5f ? -1f : 1f) : dir.x);
+            dir.x = sign * minimumHorizontalRatio;
+            dir = dir.normalized;
+        }
+
+        rb.linearVelocity = dir * speed;
     }
 
     void OnCollisionEnter2D(Collision2D collision)
     {
-        string n = collision.gameObject.name;
-        if (n.Contains("Paddle"))
+        PaddleController paddle = collision.collider.GetComponent<PaddleController>();
+        if (paddle != null)
         {
-            float half = collision.collider.bounds.extents.y;
-            float offset = half > 0.01f ? (transform.position.y - collision.transform.position.y) / half : 0f;
-            float x = collision.transform.position.x < 0f ? 1f : -1f;
-            float newSpeed = Mathf.Min(maxSpeed, Mathf.Max(startSpeed, rb.linearVelocity.magnitude + 0.25f));
-            rb.linearVelocity = new Vector2(x, Mathf.Clamp(offset, -0.9f, 0.9f)).normalized * newSpeed;
-            AudioManager.Instance?.PlayBounce();
+            float halfHeight = Mathf.Max(0.01f, collision.collider.bounds.extents.y);
+            float impact = Mathf.Clamp((transform.position.y - paddle.transform.position.y) / halfHeight, -1f, 1f);
+            float x = paddle.transform.position.x < 0f ? 1f : -1f;
+            float y = impact * impactInfluence + paddle.CurrentVelocityY * paddleVelocityInfluence;
+
+            float nextSpeed = Mathf.Min(maxSpeed, Mathf.Max(startSpeed, CurrentSpeed + speedGainPerPaddle));
+            Vector2 direction = new Vector2(x, Mathf.Clamp(y, -0.95f, 0.95f)).normalized;
+            rb.linearVelocity = direction * nextSpeed;
+
+            AudioManager.Instance?.PlayBounce(nextSpeed / maxSpeed);
+            CameraShake2D.Instance?.Shake(0.045f, 0.055f);
         }
         else
         {
             AudioManager.Instance?.PlayWall();
+            CameraShake2D.Instance?.Shake(0.018f, 0.035f);
         }
     }
 }
