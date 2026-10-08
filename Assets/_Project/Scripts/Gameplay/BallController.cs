@@ -4,8 +4,8 @@ using UnityEngine;
 public class BallController : MonoBehaviour
 {
     [Header("Speed")]
-    [Min(1f)] public float startSpeed = 7.6f;
-    [Min(1f)] public float speedGainPerPaddle = 0.42f;
+    [Min(1f)] public float startSpeed = 10.6f;
+    [Min(1f)] public float speedGainPerPaddle = 1.42f;
     [Min(1f)] public float maxSpeed = 12.8f;
     [Range(0.15f, 0.75f)] public float minimumHorizontalRatio = 0.38f;
 
