@@ -93,3 +93,7 @@ Consulta `GITFLOW.md` para el flujo completo.
 
 ## Nota tecnica
 Las escenas se generan desde un script Editor para que el ZIP sea portable y pueda reconstruirse de forma reproducible al abrirse en Unity 6000.3.16f1.
+
+## Important: Unity 6000.3.16f1 module fix
+
+This build includes the required built-in Audio and Physics 2D modules in `Packages/manifest.json`. This prevents CS1069 errors for `Rigidbody2D`, `Collision2D`, `Collider2D`, `AudioSource`, and `AudioClip`. The project is set to 2D authoring mode in `ProjectSettings/EditorSettings.asset`.
