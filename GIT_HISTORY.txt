@@ -1,51 +1,58 @@
-*   7363925 (develop) merge: hotfix/unity-modules-2d into develop
+*   a97e1e2 (develop) merge: repair helper into develop
 |\  
-* \   538d470 merge: stable v1.1.0 documentation into develop
-|\ \  
-* \ \   1678a3d merge: release/v1.1.0 into develop
+| * da2325d (HEAD -> main, tag: v1.1.1) chore: add safe Unity reimport repair helper
+* | 6ead187 merge: stable v1.1.1 documentation into develop
+|\| 
+| * c027065 docs: refresh git history after v1.1.1 hotfix
+| *   a8d0486 hotfix: restore required Unity built-in modules
+| |\  
+* | \   7363925 merge: hotfix/unity-modules-2d into develop
 |\ \ \  
-| | | | * a8d0486 (HEAD -> main, tag: v1.1.1) hotfix: restore required Unity built-in modules
-| | | |/| 
-| | |/|/  
-| | | * 4f0d373 fix: enable Unity 2D physics and audio modules
-| | |/  
-| | * f0acc36 (tag: v1.1.0) docs: refresh git history for v1.1.0
-| | *   5d54b2c release: v1.1.0
-| | |\  
 | | |/  
 | |/|   
-| * | 40b11bb release: prepare v1.1.0 documentation
-|/ /  
-* |   85c2cfd merge: feature/build-pipeline into develop
-|\ \  
-| * | 05df6a3 feat: add Windows build pipeline and final setup documentation
-|/ /  
-* |   bd7e895 merge: feature/unity-6000.3.16f1 into develop
-|\ \  
-| * | 3f9b7a4 chore: target Unity 6000.3.16f1 and configure polished 2D project
-|/ /  
-* |   34c8dd0 merge: feature/visual-audio-polish into develop
-|\ \  
-| * | 39576d9 feat: add original pixel-art polish and ambient audio
-|/ /  
-* |   044672f merge: feature/gameplay-polish into develop
-|\ \  
-| * | be138fe feat: polish 2D gameplay, scoring, pause and game feel
-|/ /  
-| *   f175339 docs: include complete project guide
-| |\  
+| * | 4f0d373 fix: enable Unity 2D physics and audio modules
 | |/  
-|/|   
-* | c5c798d docs: add complete PDF and editable project guide
-| *   967f885 docs: sync refreshed git history
+* | 538d470 merge: stable v1.1.0 documentation into develop
+|\| 
+| * f0acc36 (tag: v1.1.0) docs: refresh git history for v1.1.0
+| *   5d54b2c release: v1.1.0
 | |\  
-| |/  
-|/|   
-* | 2d17bff docs: refresh git history after hotfix
-* |   96fe4b6 merge: hotfix/inactive-ui-buttons into develop
-|\ \  
-| | *   1f81a09 (tag: v1.0.1) hotfix: inactive UI button wiring
-| | |\  
+| * \   f175339 docs: include complete project guide
+| |\ \  
+| * \ \   967f885 docs: sync refreshed git history
+| |\ \ \  
+| * \ \ \   1f81a09 (tag: v1.0.1) hotfix: inactive UI button wiring
+| |\ \ \ \  
+* | \ \ \ \   1678a3d merge: release/v1.1.0 into develop
+|\ \ \ \ \ \  
+| | |_|_|_|/  
+| |/| | | |   
+| * | | | | 40b11bb release: prepare v1.1.0 documentation
+|/ / / / /  
+* | | | |   85c2cfd merge: feature/build-pipeline into develop
+|\ \ \ \ \  
+| * | | | | 05df6a3 feat: add Windows build pipeline and final setup documentation
+|/ / / / /  
+* | | | |   bd7e895 merge: feature/unity-6000.3.16f1 into develop
+|\ \ \ \ \  
+| * | | | | 3f9b7a4 chore: target Unity 6000.3.16f1 and configure polished 2D project
+|/ / / / /  
+* | | | |   34c8dd0 merge: feature/visual-audio-polish into develop
+|\ \ \ \ \  
+| * | | | | 39576d9 feat: add original pixel-art polish and ambient audio
+|/ / / / /  
+* | | | |   044672f merge: feature/gameplay-polish into develop
+|\ \ \ \ \  
+| |_|_|_|/  
+|/| | | |   
+| * | | | be138fe feat: polish 2D gameplay, scoring, pause and game feel
+|/ / / /  
+* | | / c5c798d docs: add complete PDF and editable project guide
+| |_|/  
+|/| |   
+* | | 2d17bff docs: refresh git history after hotfix
+* | |   96fe4b6 merge: hotfix/inactive-ui-buttons into develop
+|\ \ \  
 | | |/  
 | |/|   
 | * | a95d300 fix: wire buttons inside inactive UI panels
